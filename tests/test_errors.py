@@ -16,7 +16,6 @@ def test_an_exception_is_raised_when_we_hit_an_error():
         body="It's all broken",
         status=500,
         content_type="application/json",
-        match_querystring=True,
     )
     bugzilla = Bugsy()
     with pytest.raises(BugsyException) as e:
@@ -35,7 +34,6 @@ def test_bugsyexception_raised_for_http_502_when_retrieving_bugs():
         body="Bad Gateway",
         status=502,
         content_type="text/html",
-        match_querystring=True,
     )
     bugzilla = Bugsy()
     with pytest.raises(BugsyException) as e:
@@ -71,7 +69,6 @@ def test_bugsyexception_raised_for_http_500_when_commenting_on_a_bug(bug_return)
         body='{"token": "foobar"}',
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     responses.add(
         responses.GET,
@@ -79,7 +76,6 @@ def test_bugsyexception_raised_for_http_500_when_commenting_on_a_bug(bug_return)
         body=json.dumps(bug_return),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     bugzilla = Bugsy("foo", "bar")
     bug = bugzilla.get(1017315)
@@ -90,7 +86,6 @@ def test_bugsyexception_raised_for_http_500_when_commenting_on_a_bug(bug_return)
         body="Internal Server Error",
         status=500,
         content_type="text/html",
-        match_querystring=True,
     )
     with pytest.raises(BugsyException) as e:
         bug.add_comment("I like sausages")
@@ -110,7 +105,6 @@ def test_bugsyexception_raised_for_http_500_when_adding_tags_to_bug_comments(
         body='{"token": "foobar"}',
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     responses.add(
@@ -119,7 +113,6 @@ def test_bugsyexception_raised_for_http_500_when_adding_tags_to_bug_comments(
         body=json.dumps(bug_return),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     bugzilla = Bugsy("foo", "bar")
     bug = bugzilla.get(1017315)
@@ -130,7 +123,6 @@ def test_bugsyexception_raised_for_http_500_when_adding_tags_to_bug_comments(
         body=json.dumps(comments_return),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     comments = bug.get_comments()
@@ -141,7 +133,6 @@ def test_bugsyexception_raised_for_http_500_when_adding_tags_to_bug_comments(
         body="Internal Server Error",
         status=500,
         content_type="application/json",
-        match_querystring=True,
     )
     with pytest.raises(BugsyException) as e:
         comments[0].add_tags("foo")

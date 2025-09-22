@@ -26,7 +26,6 @@ def test_we_get_a_login_exception_when_details_are_wrong():
         body='{"message": "The username or password you entered is not valid."}',
         status=400,
         content_type="application/json",
-        match_querystring=True,
     )
     with pytest.raises(LoginException) as e:
         Bugsy("foo", "bar")
@@ -46,7 +45,6 @@ def test_bad_api_key():
         body='{"documentation":"http://www.bugzilla.org/docs/tip/en/html/api/","error":true,"code":306,"message":"The API key you specified is invalid. Please check that you typed it correctly."}',
         status=400,
         content_type="application/json",
-        match_querystring=True,
     )
     with pytest.raises(LoginException) as e:
         Bugsy(username="foo", api_key="badkey")
@@ -65,7 +63,6 @@ def test_validate_api_key():
         body="true",
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     Bugsy(username="foo", api_key="goodkey")
     assert responses.calls[0].request.headers["X-Bugzilla-API-Key"] == "goodkey"
@@ -79,7 +76,6 @@ def test_we_cant_post_without_passing_a_bug_object():
         body='{"token": "foobar"}',
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     bugzilla = Bugsy("foo", "bar")
     with pytest.raises(BugsyException) as e:
@@ -98,7 +94,6 @@ def test_we_can_get_a_bug(bug_return):
         body=json.dumps(bug_return),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     bugzilla = Bugsy()
     bug = bugzilla.get(1017315)
@@ -115,7 +110,6 @@ def test_we_can_get_a_bug_with_login_token(bug_return):
         body='{"token": "foobar"}',
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     responses.add(
         responses.GET,
@@ -123,7 +117,6 @@ def test_we_can_get_a_bug_with_login_token(bug_return):
         body=json.dumps(bug_return),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     bugzilla = Bugsy("foo", "bar")
     bug = bugzilla.get(1017315)
@@ -141,7 +134,6 @@ def test_we_can_get_username_with_userid_cookie():
         body='{"users": [{"name": "user@example.com"}]}',
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     bugzilla = Bugsy(userid="1234", cookie="abcd")
@@ -159,7 +151,6 @@ def test_we_can_create_a_new_remote_bug():
         body='{"token": "foobar"}',
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     bug_dict = bug.to_dict().copy()
     bug_dict["id"] = 123123
@@ -183,7 +174,6 @@ def test_we_can_put_a_current_bug(bug_return):
         body='{"token": "foobar"}',
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     bug_dict = bug_return.copy()
     bug_dict["summary"] = "I love foo but hate bar"
@@ -200,7 +190,6 @@ def test_we_can_put_a_current_bug(bug_return):
         body=json.dumps(bug_return),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     bugzilla = Bugsy("foo", "bar")
     bug = Bug(**bug_return["bugs"][0])
@@ -220,7 +209,6 @@ def test_we_handle_errors_from_bugzilla_when_posting():
         body='{"token": "foobar"}',
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     responses.add(
         responses.POST,
@@ -245,7 +233,6 @@ def test_we_handle_errors_from_bugzilla_when_updating_a_bug(bug_return):
         body='{"token": "foobar"}',
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     responses.add(
         responses.PUT,
@@ -272,7 +259,6 @@ def test_we_can_set_the_user_agent_to_bugsy():
         body='{"token": "foobar"}',
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     Bugsy("foo", "bar")
     assert responses.calls[0].request.headers["User-Agent"] == "Bugsy"
@@ -292,7 +278,6 @@ def test_we_can_handle_errors_when_retrieving_bugs():
         body=json.dumps(error_response),
         status=404,
         content_type="application/json",
-        match_querystring=True,
     )
     bugzilla = Bugsy()
     with pytest.raises(BugsyException) as e:
@@ -313,7 +298,6 @@ def test_we_can_know_when_bugsy_is_authenticated_using_password():
         body='{"token": "foobar"}',
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     bugzilla = Bugsy("foo", "bar")
     assert bugzilla.authenticated
@@ -327,7 +311,6 @@ def test_we_can_know_when_bugsy_is_authenticated_using_apikey():
         body="true",
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     bugzilla = Bugsy(username="foo", api_key="goodkey")
     assert bugzilla.authenticated
