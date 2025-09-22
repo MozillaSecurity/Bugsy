@@ -3,7 +3,6 @@ import binascii
 import copy
 from datetime import datetime as dt
 
-import six
 
 from .errors import AttachmentException
 
@@ -69,16 +68,13 @@ class Attachment(object):
             if attr == "data":
                 # Attempt to decode data to ensure it's valid
                 try:
-                    if hasattr(base64, "decodebytes"):
-                        base64.decodebytes(value.encode("utf-8"))
-                    else:
-                        base64.decodestring(value)
+                    base64.decodebytes(value.encode("utf-8"))
                 except binascii.Error:
                     raise AttachmentException(
                         "The data field value must be in base64 format"
                     )
             elif attr in ["comment", "content_type", "file_name", "summary"]:
-                if not isinstance(value, six.string_types):
+                if not isinstance(value, str):
                     raise AttachmentException(
                         "The %s field value must be of type string" % attr
                     )
