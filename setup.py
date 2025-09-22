@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="bugsy",
-    version="0.12.0",
+    version="0.13.0",
     description="A library for interacting Bugzilla Native REST API",
     author="David Burns",
     author_email="david.burns@theautomatedtester.co.uk",
@@ -16,7 +16,15 @@ setup(
         "Operating System :: MacOS :: MacOS X",
         "Topic :: Software Development :: Libraries",
         "Programming Language :: Python",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3 :: Only",
     ],
     packages=find_packages(),
+    python_requires=">=3.9",
     install_requires=["requests>=1.1.0"],
 )
