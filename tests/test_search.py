@@ -62,7 +62,6 @@ def test_we_only_ask_for_the_include_fields():
         body=json.dumps(include_return),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     bugzilla = Bugsy()
@@ -127,7 +126,6 @@ def test_we_can_search_components():
         body=json.dumps(include_return),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     bugzilla = Bugsy()
@@ -187,7 +185,6 @@ def test_we_can_search_products():
         body=json.dumps(include_return),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     bugzilla = Bugsy()
@@ -245,7 +242,6 @@ def test_we_only_ask_for_the_include_fields_while_logged_in():
         body='{"token": "foobar"}',
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     url_params = dict(
@@ -257,7 +253,6 @@ def test_we_only_ask_for_the_include_fields_while_logged_in():
         body=json.dumps(include_return),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     bugzilla = Bugsy("foo", "bar")
@@ -306,7 +301,6 @@ def test_we_can_return_keyword_search():
         body=json.dumps(keyword_return),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     bugzilla = Bugsy()
@@ -346,7 +340,6 @@ def test_that_we_can_search_for_a_specific_user():
         body=json.dumps(user_return),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     bugzilla = Bugsy()
@@ -381,7 +374,6 @@ def test_we_can_search_summary_fields():
         body=json.dumps(summary_return),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     bugzilla = Bugsy()
@@ -425,7 +417,6 @@ def test_we_can_search_whiteboard_fields():
         body=json.dumps(whiteboard_return),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     bugzilla = Bugsy()
@@ -468,7 +459,6 @@ def test_we_can_search_for_a_list_of_bug_numbers():
         body=json.dumps(return_1),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     responses.add(
@@ -477,7 +467,6 @@ def test_we_can_search_for_a_list_of_bug_numbers():
         body=json.dumps(return_2),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     bugzilla = Bugsy()
     bugs = bugzilla.search_for.bug_number(["1017315", "1017316"]).search()
@@ -510,7 +499,6 @@ def test_we_can_search_for_a_list_of_bug_numbers_with_start_finish_dates():
         body=json.dumps(return_1),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     bugzilla = Bugsy()
@@ -540,7 +528,7 @@ def test_we_can_search_with_change_history_field_throws_when_not_given_a_list():
         body=json.dumps(return_1),
         status=200,
         content_type="application/json",
-        match_querystring=False,
+        match=[],
     )
     bugzilla = Bugsy()
     with pytest.raises(Exception) as e:
@@ -574,7 +562,6 @@ def test_we_can_search_with_change_history_field_gets_bugs():
         body=json.dumps(return_1),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     bugzilla = Bugsy()
@@ -611,7 +598,6 @@ def test_we_can_handle_errors_coming_back_from_search():
         body=json.dumps(error_return),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     bugzilla = Bugsy()

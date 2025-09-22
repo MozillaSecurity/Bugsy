@@ -222,7 +222,6 @@ def test_we_can_update_a_bug_from_bugzilla(bug_return):
         body=json.dumps(bug_return),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     bugzilla = Bugsy()
     bug = bugzilla.get(1017315)
@@ -259,7 +258,6 @@ def test_we_can_update_a_bug_with_login_token(bug_return):
         body='{"token": "foobar"}',
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     responses.add(
@@ -268,7 +266,6 @@ def test_we_can_update_a_bug_with_login_token(bug_return):
         body=json.dumps(bug_return),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     bugzilla = Bugsy()
     bug = bugzilla.get(1017315)
@@ -295,7 +292,6 @@ def test_that_we_can_add_a_comment_to_a_bug_before_it_is_put(bug_return):
         body='{"token": "foobar"}',
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     responses.add(
@@ -304,7 +300,6 @@ def test_that_we_can_add_a_comment_to_a_bug_before_it_is_put(bug_return):
         body=json.dumps(bug_return),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     bugzilla = Bugsy("foo", "bar")
     bug = Bug()
@@ -320,7 +315,6 @@ def test_that_we_can_add_a_comment_to_a_bug_before_it_is_put(bug_return):
         body=json.dumps(bug_dict),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     bugzilla.put(bug)
 
@@ -333,7 +327,6 @@ def test_that_we_can_add_a_comment_to_an_existing_bug(bug_return):
         body='{"token": "foobar"}',
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     responses.add(
@@ -342,7 +335,6 @@ def test_that_we_can_add_a_comment_to_an_existing_bug(bug_return):
         body=json.dumps(bug_return),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     bugzilla = Bugsy("foo", "bar")
     bug = bugzilla.get(1017315)
@@ -353,7 +345,6 @@ def test_that_we_can_add_a_comment_to_an_existing_bug(bug_return):
         body=json.dumps({}),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     bug.add_comment("I like sausages")
@@ -369,7 +360,6 @@ def test_comment_retrieval(bug_return, comments_return):
         body='{"token": "foobar"}',
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     responses.add(
         responses.GET,
@@ -377,7 +367,6 @@ def test_comment_retrieval(bug_return, comments_return):
         body=json.dumps(bug_return),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     responses.add(
         responses.GET,
@@ -385,7 +374,6 @@ def test_comment_retrieval(bug_return, comments_return):
         body=json.dumps(comments_return),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     bugzilla = Bugsy("foo", "bar")
@@ -413,7 +401,6 @@ def test_we_raise_an_exception_when_getting_comments_and_bugzilla_errors(bug_ret
         body='{"token": "foobar"}',
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     responses.add(
@@ -422,7 +409,6 @@ def test_we_raise_an_exception_when_getting_comments_and_bugzilla_errors(bug_ret
         body=json.dumps(bug_return),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     bugzilla = Bugsy("foo", "bar")
     bug = bugzilla.get(1017315)
@@ -440,7 +426,6 @@ def test_we_raise_an_exception_when_getting_comments_and_bugzilla_errors(bug_ret
         body=json.dumps(error_response),
         status=400,
         content_type="application/json",
-        match_querystring=True,
     )
     with pytest.raises(BugsyException) as excinfo:
         bug.get_comments()
@@ -458,7 +443,6 @@ def test_we_raise_an_exception_if_commenting_on_a_bug_that_returns_an_error(bug_
         body='{"token": "foobar"}',
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     responses.add(
@@ -467,7 +451,6 @@ def test_we_raise_an_exception_if_commenting_on_a_bug_that_returns_an_error(bug_
         body=json.dumps(bug_return),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     bugzilla = Bugsy("foo", "bar")
     bug = bugzilla.get(1017315)
@@ -486,7 +469,6 @@ def test_we_raise_an_exception_if_commenting_on_a_bug_that_returns_an_error(bug_
         body=json.dumps(error_response),
         status=404,
         content_type="application/json",
-        match_querystring=True,
     )
     with pytest.raises(BugsyException) as e:
         bug.add_comment("I like sausages")
@@ -503,7 +485,6 @@ def test_we_can_add_tags_to_bug_comments(bug_return, comments_return):
         body='{"token": "foobar"}',
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     responses.add(
@@ -512,7 +493,6 @@ def test_we_can_add_tags_to_bug_comments(bug_return, comments_return):
         body=json.dumps(bug_return),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     bugzilla = Bugsy("foo", "bar")
     bug = bugzilla.get(1017315)
@@ -523,7 +503,6 @@ def test_we_can_add_tags_to_bug_comments(bug_return, comments_return):
         body=json.dumps(comments_return),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     comments = bug.get_comments()
@@ -534,7 +513,6 @@ def test_we_can_add_tags_to_bug_comments(bug_return, comments_return):
         body=json.dumps(["spam", "foo"]),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     comments[0].add_tags("foo")
 
@@ -549,7 +527,6 @@ def test_we_can_remove_tags_to_bug_comments(bug_return, comments_return):
         body='{"token": "foobar"}',
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     responses.add(
@@ -558,7 +535,6 @@ def test_we_can_remove_tags_to_bug_comments(bug_return, comments_return):
         body=json.dumps(bug_return),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     bugzilla = Bugsy("foo", "bar")
     bug = bugzilla.get(1017315)
@@ -569,7 +545,6 @@ def test_we_can_remove_tags_to_bug_comments(bug_return, comments_return):
         body=json.dumps(comments_return),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     comments = bug.get_comments()
@@ -580,7 +555,6 @@ def test_we_can_remove_tags_to_bug_comments(bug_return, comments_return):
         body=json.dumps(["spam", "foo"]),
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     comments[0].remove_tags("foo")
 
@@ -603,7 +577,6 @@ def test_bug_update_updates_copy_dict(bug_return, comments_return):
         body='{"token": "foobar"}',
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     bugzilla = Bugsy("foo", "bar")
     bug = Bug(bugzilla, **bug_return["bugs"][0])
@@ -641,7 +614,6 @@ def test_attachment_retrieval(attachment_return, bug_return):
         body='{"token": "foobar"}',
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     responses.add(
         responses.GET,
@@ -649,7 +621,6 @@ def test_attachment_retrieval(attachment_return, bug_return):
         json=bug_return,
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     responses.add(
         responses.GET,
@@ -657,7 +628,6 @@ def test_attachment_retrieval(attachment_return, bug_return):
         json=attachment_return,
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     bugzilla = Bugsy("foo", "bar")
@@ -683,7 +653,6 @@ def test_add_attachment(attachment_return, bug_return):
         body='{"token": "foobar"}',
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     responses.add(
         responses.GET,
@@ -691,7 +660,6 @@ def test_add_attachment(attachment_return, bug_return):
         json=bug_return,
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     responses.add(
         responses.POST,
@@ -699,7 +667,6 @@ def test_add_attachment(attachment_return, bug_return):
         json=attachment_return,
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     bugzilla = Bugsy("foo", "bar")
@@ -718,7 +685,6 @@ def test_add_attachment_with_missing_required_fields(attachment_return, bug_retu
         body='{"token": "foobar"}',
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     responses.add(
         responses.GET,
@@ -726,7 +692,6 @@ def test_add_attachment_with_missing_required_fields(attachment_return, bug_retu
         json=bug_return,
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
     responses.add(
         responses.POST,
@@ -734,7 +699,6 @@ def test_add_attachment_with_missing_required_fields(attachment_return, bug_retu
         json=attachment_return,
         status=200,
         content_type="application/json",
-        match_querystring=True,
     )
 
     bugzilla = Bugsy("foo", "bar")
