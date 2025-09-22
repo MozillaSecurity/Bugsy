@@ -24,7 +24,8 @@ setup(
         "Programming Language :: Python :: 3.13",
         "Programming Language :: Python :: 3 :: Only",
     ],
-    packages=find_packages(),
+    packages=find_packages(where="src"),
+    package_dir={"": "src"},
     python_requires=">=3.9",
     install_requires=["requests>=1.1.0"],
 )
