@@ -29,10 +29,10 @@
 ==================
 
   * Correct pyflakes error
-  * Add error codes returned from Bugzilla to errror messages
+  * Add error codes returned from Bugzilla to error messages
   * Handle when Bugzilla returns errors with a 200 status code
   * Correct test when ting into an existing bug
-  * Handle the case where  isnt on the
+  * Handle the case where  isn't on the
   * Add the ability to get the blockers and dependent bugs
   * Pop messages on the bug that were added for creation otherwise you get an error
   * Get the ability to get keywords associated to the bug.
@@ -94,7 +94,7 @@
  * allow searching to handle time frames
  * Change UserAgent for bugsy to that Bugzilla knows that it is us calling. Fixes #4
  * Add version added to comments documentation
- * Add documenation for comments
+ * Add documentation for comments
 
 0.3.0 / 2014-07-14
 ==================

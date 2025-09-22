@@ -1,6 +1,6 @@
-six
-pytest
 flake8
+pytest
 requests
 responses
+six
 tox

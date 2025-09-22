@@ -82,7 +82,7 @@ use the Bugsy object to put the bug into Bugzilla
 
     import bugsy
     bug = bugsy.Bug()
-    bug.summary = "I really realy love cheese"
+    bug.summary = "I really really love cheese"
     bug.add_comment("and I really want sausages with it!")
 
     bugzilla = bugsy.Bugsy("username", "password")

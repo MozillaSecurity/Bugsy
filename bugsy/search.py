@@ -6,13 +6,14 @@ from .errors import SearchException
 
 class Search(object):
     """
-        This allows searching for bugs in Bugzilla
+    This allows searching for bugs in Bugzilla
     """
+
     def __init__(self, bugsy):
         """
-            Initialises the search object
+        Initialises the search object
 
-            :param bugsy: Bugsy instance to use to connect to Bugzilla.
+        :param bugsy: Bugsy instance to use to connect to Bugzilla.
         """
         self._bugsy = bugsy
         self._includefields = copy.copy(bugsy.DEFAULT_SEARCH)
@@ -28,18 +29,18 @@ class Search(object):
 
     def include_fields(self, *args):
         r"""
-            Include fields is the fields that you want to be returned when
-            searching. These are in addition to the fields that are always
-            included below.
+        Include fields is the fields that you want to be returned when
+        searching. These are in addition to the fields that are always
+        included below.
 
-            :param args: items passed in will be turned into a list
-            :returns: :class:`Search`
+        :param args: items passed in will be turned into a list
+        :returns: :class:`Search`
 
-            >>> bugzilla.search_for.include_fields("flags")
+        >>> bugzilla.search_for.include_fields("flags")
 
-            The following fields are always included in search:
-                'version', 'id', 'summary', 'status', 'op_sys',
-                'resolution', 'product', 'component', 'platform'
+        The following fields are always included in search:
+            'version', 'id', 'summary', 'status', 'op_sys',
+            'resolution', 'product', 'component', 'platform'
         """
         for arg in args:
             self._includefields.append(arg)
@@ -47,10 +48,10 @@ class Search(object):
 
     def component(self, *components):
         r"""
-            When search() is called it will limit results to items in a component.
+        When search() is called it will limit results to items in a component.
 
-            :param component: items passed in will be turned into a list
-            :returns: :class:`Search`
+        :param component: items passed in will be turned into a list
+        :returns: :class:`Search`
         """
         for component in components:
             self._component.append(component)
@@ -58,10 +59,10 @@ class Search(object):
 
     def product(self, *products):
         r"""
-            When search is called, it will limit the results to items in a Product.
+        When search is called, it will limit the results to items in a Product.
 
-            :param product: items passed in will be turned into a list
-            :returns: :class:`Search`
+        :param product: items passed in will be turned into a list
+        :returns: :class:`Search`
         """
         for product in products:
             self._product.append(product)
@@ -69,94 +70,92 @@ class Search(object):
 
     def keywords(self, *args):
         r"""
-            When search() is called it will search for the keywords passed
-            in here
+        When search() is called it will search for the keywords passed
+        in here
 
-            :param args: items passed in will be turned into a list
-            :returns: :class:`Search`
+        :param args: items passed in will be turned into a list
+        :returns: :class:`Search`
 
-            >>> bugzilla.search_for.keywords("checkin-needed")
+        >>> bugzilla.search_for.keywords("checkin-needed")
         """
         self._keywords = list(args)
         return self
 
     def assigned_to(self, *args):
         r"""
-            When search() is called it will search for bugs assigned to these
-            users
+        When search() is called it will search for bugs assigned to these
+        users
 
-            :param args: items passed in will be turned into a list
-            :returns: :class:`Search`
+        :param args: items passed in will be turned into a list
+        :returns: :class:`Search`
 
-            >>> bugzilla.search_for.assigned_to("dburns@mozilla.com")
+        >>> bugzilla.search_for.assigned_to("dburns@mozilla.com")
         """
         self._assigned = list(args)
         return self
 
     def summary(self, *args):
         r"""
-            When search is called it will search for bugs with the words
-            passed into the methods
+        When search is called it will search for bugs with the words
+        passed into the methods
 
-            :param args: items passed in will be turned into a list
-            :returns: :class:`Search`
+        :param args: items passed in will be turned into a list
+        :returns: :class:`Search`
 
-            >>> bugzilla.search_for.summary("663399")
+        >>> bugzilla.search_for.summary("663399")
         """
         self._summaries = list(args)
         return self
 
     def whiteboard(self, *args):
         r"""
-            When search is called it will search for bugs with the words
-            passed into the methods
+        When search is called it will search for bugs with the words
+        passed into the methods
 
-            :param args: items passed in will be turned into a list
-            :returns: :class:`Search`
+        :param args: items passed in will be turned into a list
+        :returns: :class:`Search`
 
-            >>> bugzilla.search_for.whiteboard("affects")
+        >>> bugzilla.search_for.whiteboard("affects")
         """
         self._whiteboard = list(args)
         return self
 
     def bug_number(self, bug_numbers):
         r"""
-            When you want to search for a bugs and be able to change the fields
-            returned.
+        When you want to search for a bugs and be able to change the fields
+        returned.
 
-            :param bug_numbers: A string for the bug number or a list of
-                                strings
-            :returns: :class:`Search`
+        :param bug_numbers: A string for the bug number or a list of
+                            strings
+        :returns: :class:`Search`
 
-            >>> bugzilla.search_for.bug_number(['123123', '123456'])
+        >>> bugzilla.search_for.bug_number(['123123', '123456'])
         """
         self._bug_numbers = list(bug_numbers)
         return self
 
     def timeframe(self, start, end):
         r"""
-            When you want to search bugs for a certain time frame.
+        When you want to search bugs for a certain time frame.
 
-            :param start:
-            :param end:
-            :returns: :class:`Search`
+        :param start:
+        :param end:
+        :returns: :class:`Search`
         """
         if start:
-            self._time_frame['chfieldfrom'] = start
+            self._time_frame["chfieldfrom"] = start
         if end:
-            self._time_frame['chfieldto'] = end
+            self._time_frame["chfieldto"] = end
         return self
 
     def change_history_fields(self, fields, value=None):
-        r"""
-
-        """
+        r""" """
         if not isinstance(fields, list):
-            raise Exception('fields should be a list')
+            raise Exception("fields should be a list")
 
-        self._change_history['fields'] = fields
+        self._change_history["fields"] = fields
         if value:
-            self._change_history['value'] = value
+            self._change_history["value"] = value
 
         return self
 
@@ -176,38 +175,37 @@ class Search(object):
         params.update(self._time_frame.items())
 
         if self._includefields:
-            params['include_fields'] = list(self._includefields)
+            params["include_fields"] = list(self._includefields)
         if self._bug_numbers:
             bugs = []
             for bug in self._bug_numbers:
-                result = self._bugsy.request('bug/%s' % bug,
-                                             params=params)
-                bugs.append(Bug(self._bugsy, **result['bugs'][0]))
+                result = self._bugsy.request("bug/%s" % bug, params=params)
+                bugs.append(Bug(self._bugsy, **result["bugs"][0]))
 
             return bugs
         else:
             if self._component:
-                params['component'] = list(self._component)
+                params["component"] = list(self._component)
             if self._product:
-                params['product'] = list(self._product)
+                params["product"] = list(self._product)
             if self._keywords:
-                params['keywords'] = list(self._keywords)
+                params["keywords"] = list(self._keywords)
             if self._assigned:
-                params['assigned_to'] = list(self._assigned)
+                params["assigned_to"] = list(self._assigned)
             if self._summaries:
-                params['short_desc_type'] = 'allwordssubstr'
-                params['short_desc'] = list(self._summaries)
+                params["short_desc_type"] = "allwordssubstr"
+                params["short_desc"] = list(self._summaries)
             if self._whiteboard:
-                params['short_desc_type'] = 'allwordssubstr'
-                params['whiteboard'] = list(self._whiteboard)
-            if self._change_history['fields']:
-                params['chfield'] = self._change_history['fields']
-            if self._change_history.get('value', None):
-                params['chfieldvalue'] = self._change_history['value']
+                params["short_desc_type"] = "allwordssubstr"
+                params["whiteboard"] = list(self._whiteboard)
+            if self._change_history["fields"]:
+                params["chfield"] = self._change_history["fields"]
+            if self._change_history.get("value", None):
+                params["chfieldvalue"] = self._change_history["value"]
 
             try:
-                results = self._bugsy.request('bug', params=params)
+                results = self._bugsy.request("bug", params=params)
             except Exception as e:
                 raise SearchException(e.msg, e.code)
 
-            return [Bug(self._bugsy, **bug) for bug in results['bugs']]
+            return [Bug(self._bugsy, **bug) for bug in results["bugs"]]
