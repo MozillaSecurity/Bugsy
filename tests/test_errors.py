@@ -96,6 +96,22 @@ def test_bugsyexception_raised_for_http_500_when_commenting_on_a_bug(bug_return)
 
 
 @responses.activate
+def test_bugsyexception_raised_when_error_message_is_none():
+    # Bugzilla can return an error response whose "message" field is None.
+    responses.add(
+        responses.GET,
+        rest_url("bug", 2045159),
+        body=json.dumps({"error": True, "code": 102, "message": None}),
+        status=200,
+        content_type="application/json",
+    )
+    bugzilla = Bugsy()
+    with pytest.raises(BugsyException) as e:
+        bugzilla.get(2045159)
+    assert str(e.value) == "Message: None Code: 102"
+
+
+@responses.activate
 def test_bugsyexception_raised_for_http_500_when_adding_tags_to_bug_comments(
     bug_return, comments_return
 ):
