@@ -22,22 +22,17 @@ To use you will do
 Installing Bugsy
 ----------------
 
-To install Bugsy, simply run this simple command in your terminal of choice
-
-Pip
+To add Bugsy to a project managed by uv, run:
 
 .. code-block:: bash
 
-    pip install bugsy
+    uv add mozsec-bugsy
 
-If you don't have pip installed then do
-
-easy_install
+You can also install it with pip:
 
 .. code-block:: bash
 
-    easy_install pip
-    pip install bugsy
+    pip install mozsec-bugsy
 
 Bugsy is actively developed on GitHub, where the code is always available.
 
@@ -53,10 +48,11 @@ Or, download the tarball:
     $ curl -OL https://github.com/AutomatedTester/bugsy/tarball/master
     # optionally, zipball is also available (for Windows users).
 
-Once you have a copy of the source, you can embed it in your own Python package, or install it into your site-packages easily:
+Once you have a copy of the source, install it into your environment with uv:
 
 .. code-block:: bash
-    $ python setup.py install
+
+    uv pip install .
 
 Using Bugsy
 -----------
