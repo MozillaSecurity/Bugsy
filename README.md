@@ -6,7 +6,7 @@ Bugsy
 
 Bugsy is a library for interacting with the native REST API for Bugzilla.
 
-Install it from PyPI with `pip install mozsec-bugsy`. The Python package remains
-`bugsy`.
+Install it from PyPI with `uv add mozsec-bugsy` or `pip install mozsec-bugsy`.
+The Python package remains `bugsy`.
 
 Documentation can be found on [Read The Docs](http://bugsy.readthedocs.org/en/latest)

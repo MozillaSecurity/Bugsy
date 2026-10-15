@@ -7,11 +7,9 @@ in the review process.
 ## Getting Started
 
 * Fork the repository on GitHub - well... duh :P
-* Create a virtualenv: `virtualenv venv`
-* Activate the virtualenv: `. venv/bin/activate`
-* Install the package in develop mode: `python setup.py develop`
-* Install requirements: `pip install -r requirements.txt`
-* Run the tests to check that everything was successful: `py.test tests`
+* Install [uv](https://docs.astral.sh/uv/getting-started/installation/).
+* Install the project and development dependencies: `uv sync --all-groups`
+* Run the tests: `uv run pytest`
 
 ## Making Changes
 
@@ -24,10 +22,9 @@ in the review process.
     `master` branch.
 * Make commits of logical units.
 * Check for unnecessary whitespace with `git diff --check` before committing.
-* Check for python pep8 compliance: `flake8 bugsy`
+* Run lint and formatting checks: `uv run pre-commit run --all-files`
 * Make sure you have added the necessary tests for your changes.
-* Run _all_ the tests to assure nothing else was accidentally broken.
-  * Call `tox` and that will test all version of python for you (if they are installed)
+* Run the tests with `uv run pytest`. CI checks Python 3.9 through 3.13.
 
 
 ## Submitting Changes
