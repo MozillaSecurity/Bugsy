@@ -377,11 +377,7 @@ def test_we_can_search_summary_fields():
     )
 
     bugzilla = Bugsy()
-    bugs = (
-        bugzilla.search_for.assigned_to("dburns@mozilla.com")
-        .summary("rebecca")
-        .search()
-    )
+    bugs = bugzilla.search_for.assigned_to("dburns@mozilla.com").summary("rebecca").search()
 
     assert len(responses.calls) == 1
     assert len(bugs) == 1
@@ -420,11 +416,7 @@ def test_we_can_search_whiteboard_fields():
     )
 
     bugzilla = Bugsy()
-    bugs = (
-        bugzilla.search_for.assigned_to("dburns@mozilla.com")
-        .whiteboard("affects")
-        .search()
-    )
+    bugs = bugzilla.search_for.assigned_to("dburns@mozilla.com").whiteboard("affects").search()
 
     assert len(responses.calls) == 1
     assert len(bugs) == 2
@@ -602,9 +594,7 @@ def test_we_can_handle_errors_coming_back_from_search():
 
     bugzilla = Bugsy()
     with pytest.raises(SearchException) as e:
-        bugzilla.search_for.change_history_fields(
-            ["[Bug Creation]", "Alias"], "foo"
-        ).timeframe("2014-12-01", "2014-12-05").search()
-    assert (
-        str(e.value) == "Message: Can't use [Bug Creation] as a field name. Code: 108"
-    )
+        bugzilla.search_for.change_history_fields(["[Bug Creation]", "Alias"], "foo").timeframe(
+            "2014-12-01", "2014-12-05"
+        ).search()
+    assert str(e.value) == "Message: Can't use [Bug Creation] as a field name. Code: 108"

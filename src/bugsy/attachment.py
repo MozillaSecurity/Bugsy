@@ -58,9 +58,7 @@ class Attachment(object):
                 clone = copy.deepcopy(value)
                 time_fields = {"creation_time", "last_change_time"}
                 for time_field in list(time_fields & set(clone.keys())):
-                    clone[time_field] = dt.strptime(
-                        clone[time_field], "%Y-%m-%dT%H:%M:%SZ"
-                    )
+                    clone[time_field] = dt.strptime(clone[time_field], "%Y-%m-%dT%H:%M:%SZ")
                 object.__setattr__(self, attr, clone)
             elif attr == "_copy":
                 object.__setattr__(self, attr, value)
@@ -70,25 +68,17 @@ class Attachment(object):
                 try:
                     base64.decodebytes(value.encode("utf-8"))
                 except binascii.Error:
-                    raise AttachmentException(
-                        "The data field value must be in base64 format"
-                    )
+                    raise AttachmentException("The data field value must be in base64 format")
             elif attr in ["comment", "content_type", "file_name", "summary"]:
                 if not isinstance(value, str):
-                    raise AttachmentException(
-                        "The %s field value must be of type string" % attr
-                    )
+                    raise AttachmentException("The %s field value must be of type string" % attr)
             elif attr in ["is_patch", "is_private"]:
                 if not isinstance(value, bool):
-                    raise AttachmentException(
-                        "The %s field value must be of type bool" % attr
-                    )
+                    raise AttachmentException("The %s field value must be of type bool" % attr)
             elif attr == "flags" or attr == "bug_flags":
                 if not isinstance(value, list):
                     # ToDo: Once flags are implemented, this should check isInstance(list[i], Flag)
-                    raise AttachmentException(
-                        "The %s field value must be of type list" % attr
-                    )
+                    raise AttachmentException("The %s field value must be of type list" % attr)
 
             self._attachment[attr] = copy.copy(value)
 
@@ -107,9 +97,7 @@ class Attachment(object):
             if k in self.UPDATE_FIELDS:
                 updates[k] = self._attachment[k]
 
-        res = self._bugsy.request(
-            "bug/attachment/%s" % self.id, method="PUT", json=updates
-        )
+        res = self._bugsy.request("bug/attachment/%s" % self.id, method="PUT", json=updates)
 
         self._attachment = res["attachments"][0]
         self._copy = copy.deepcopy(self._attachment)

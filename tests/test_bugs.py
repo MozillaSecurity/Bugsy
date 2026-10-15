@@ -64,13 +64,9 @@ def test_we_can_add_multiple_keywords_to_list(bug_return):
     bug.keywords.extend(["intermittent", "ateam-marionette-server"])
     output = bug.diff()
     assert isinstance(output, dict)
-    assert sorted(output["keywords"]["add"]) == sorted(
-        ["intermittent", "ateam-marionette-server"]
-    )
+    assert sorted(output["keywords"]["add"]) == sorted(["intermittent", "ateam-marionette-server"])
     keywords = bug.keywords
-    assert sorted(["regression", "intermittent", "ateam-marionette-server"]) == sorted(
-        keywords
-    )
+    assert sorted(["regression", "intermittent", "ateam-marionette-server"]) == sorted(keywords)
 
 
 def test_we_can_add_remove_a_keyword_list(bug_return):
@@ -244,10 +240,7 @@ def test_we_cant_update_unless_we_have_a_bug_id():
     bug = Bug()
     with pytest.raises(BugException) as e:
         bug.update()
-    assert (
-        str(e.value)
-        == "Message: Unable to update bug that isn't in Bugzilla Code: None"
-    )
+    assert str(e.value) == "Message: Unable to update bug that isn't in Bugzilla Code: None"
 
 
 @responses.activate
@@ -709,10 +702,7 @@ def test_add_attachment_with_missing_required_fields(attachment_return, bug_retu
 
     with pytest.raises(BugException) as e:
         bug.add_attachment(attachment)
-    assert (
-        str(e.value)
-        == "Message: Cannot add attachment without all required fields Code: None"
-    )
+    assert str(e.value) == "Message: Cannot add attachment without all required fields Code: None"
 
 
 def test_we_cant_add_attachment_without_id(attachment_return):
@@ -721,6 +711,4 @@ def test_we_cant_add_attachment_without_id(attachment_return):
 
     with pytest.raises(BugException) as e:
         bug.add_attachment(attachment)
-    assert (
-        str(e.value) == "Message: Cannot add an attachment without a bug id Code: None"
-    )
+    assert str(e.value) == "Message: Cannot add an attachment without a bug id Code: None"

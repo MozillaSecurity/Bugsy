@@ -159,9 +159,7 @@ class Bugsy(object):
 
         """
         if not self._have_auth:
-            raise BugsyException(
-                "Unfortunately you can't put bugs in Bugzilla without credentials"
-            )
+            raise BugsyException("Unfortunately you can't put bugs in Bugzilla without credentials")
 
         if not isinstance(bug, Bug):
             raise BugsyException("Please pass in a Bug object when posting to Bugzilla")
@@ -210,9 +208,7 @@ class Bugsy(object):
             )
         result = response.json()
         if (response.status_code > 399 and response.status_code < 500) or (
-            isinstance(result, dict)
-            and "error" in result
-            and result.get("error", False) is True
+            isinstance(result, dict) and "error" in result and result.get("error", False) is True
         ):
             message = result.get("message")
             if message and ("API key" in message or "username or password" in message):
