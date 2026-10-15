@@ -1,6 +1,0 @@
-flake8
-pytest
-requests
-responses
-setuptools
-tox
