@@ -1,6 +1,6 @@
 [project]
 name = "mozsec-bugsy"
-version = "0.13.0"
+version = "1.0.0"
 description = "A library for interacting Bugzilla Native REST API"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -51,7 +51,7 @@ build_command = "uv build"
 commit_message = "chore(release): {version} [skip ci]"
 commit_parser = "conventional"
 tag_format = "v{version}"
-version_variables = ["pyproject.toml:project.version"]
+version_toml = ["pyproject.toml:project.version"]
 
 [tool.ruff]
 line-length = 100
