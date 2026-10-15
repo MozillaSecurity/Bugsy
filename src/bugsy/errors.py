@@ -9,9 +9,7 @@ class BugsyException(Exception):
         self.code = error_code
 
     def __str__(self):
-        return "Message: {message} Code: {code}".format(
-            message=self.msg, code=self.code
-        )
+        return "Message: {message} Code: {code}".format(message=self.msg, code=self.code)
 
 
 class LoginException(BugsyException):

@@ -29,10 +29,7 @@ def test_we_get_a_login_exception_when_details_are_wrong():
     )
     with pytest.raises(LoginException) as e:
         Bugsy("foo", "bar")
-    assert (
-        str(e.value)
-        == "Message: The username or password you entered is not valid. Code: None"
-    )
+    assert str(e.value) == "Message: The username or password you entered is not valid. Code: None"
     assert responses.calls[0].request.headers["X-Bugzilla-Login"] == "foo"
     assert responses.calls[0].request.headers["X-Bugzilla-Password"] == "bar"
 
@@ -81,8 +78,7 @@ def test_we_cant_post_without_passing_a_bug_object():
     with pytest.raises(BugsyException) as e:
         bugzilla.put("foo")
     assert (
-        str(e.value)
-        == "Message: Please pass in a Bug object when posting to Bugzilla Code: None"
+        str(e.value) == "Message: Please pass in a Bug object when posting to Bugzilla Code: None"
     )
 
 

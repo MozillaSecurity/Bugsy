@@ -129,10 +129,7 @@ class Bug(object):
         bug = str(self._bug["id"])
         res = self._bugsy.request("bug/%s/comment" % bug)
 
-        return [
-            Comment(bugsy=self._bugsy, **comments)
-            for comments in res["bugs"][bug]["comments"]
-        ]
+        return [Comment(bugsy=self._bugsy, **comments) for comments in res["bugs"][bug]["comments"]]
 
     def add_comment(self, comment):
         """
@@ -172,10 +169,7 @@ class Bug(object):
             "bug/%s/attachment" % bug,
         )
 
-        return [
-            Attachment(bugsy=self._bugsy, **attachments)
-            for attachments in res["bugs"][bug]
-        ]
+        return [Attachment(bugsy=self._bugsy, **attachments) for attachments in res["bugs"][bug]]
 
     def add_attachment(self, attachment):
         if not self.id:
@@ -190,9 +184,7 @@ class Bug(object):
         for field in list(set(Attachment.CREATE_FIELDS) & set(attach_dict.keys())):
             output[field] = attach_dict[field]
 
-        self._bugsy.request(
-            "bug/%s/attachment" % self._bug["id"], method="POST", json=output
-        )
+        self._bugsy.request("bug/%s/attachment" % self._bug["id"], method="POST", json=output)
 
     def diff(self):
         """

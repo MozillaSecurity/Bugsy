@@ -51,10 +51,7 @@ def test_setter_validate_base64_types(attachment_return):
 
     with pytest.raises(AttachmentException) as e:
         attachment.data = "foobar"
-    assert (
-        str(e.value)
-        == "Message: The data field value must be in base64 format Code: None"
-    )
+    assert str(e.value) == "Message: The data field value must be in base64 format Code: None"
 
 
 def test_setter_validate_string_types(attachment_return):
@@ -144,6 +141,4 @@ def test_update_without_an_id_fails(attachment_return):
 
     with pytest.raises(AttachmentException) as e:
         attachment.update()
-    assert (
-        str(e.value) == "Message: Cannot update bug without an attachment id Code: None"
-    )
+    assert str(e.value) == "Message: Cannot update bug without an attachment id Code: None"
