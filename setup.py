@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="mozsec-bugsy",
-    version="0.13.0",
+    version="1.0.0",
     description="A library for interacting Bugzilla Native REST API",
     author="David Burns",
     author_email="david.burns@theautomatedtester.co.uk",
